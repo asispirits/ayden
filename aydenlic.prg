@@ -15,7 +15,7 @@ ON ERROR DO kserror WITH ERROR( ), MESSAGE( ), MESSAGE(1), PROGRAM( ), LINENO( )
 PUBLIC licensefile
 
 IF !FILE('accset.asi')
-	CREATE TABLE accset.asi (vcp c(10),vtxcp C(10),vcnp C(10), vtxcnp C(10),acp C(10),atxcp C(10),atxcnp C(10),acnp C(10),cardinter C(10),merchantid C(20),terminalid C(35),deviceid C(10),storeno I,register I,eol D)
+	CREATE TABLE accset.asi (vcp c(10),vtxcp C(10),vcnp C(10), vtxcnp C(10),acp C(10),atxcp C(10),atxcnp C(10),acnp C(10),cardinter C(10),merchantid C(20),terminalid C(35),deviceid C(10),storeno I,register I,eol D,companyid c(2))
 	**SELECT accset.asi
 	USE
 ENDIF
@@ -26,6 +26,16 @@ SELECT accset
 IF RECCOUNT() = 0
 	APPEND BLANK
 	replace accset.eol WITH {^2025-08-31}
+	replace accset.vcp WITH "2.89"
+	replace accset.vtxcp WITH ".10"
+	replace accset.vcnp WITH "3.49"
+	replace accset.vtxcnp WITH ".15"
+	replace accset.acp WITH "3.29"
+	replace accset.atxcp WITH ".10"
+	replace accset.acnp WITH "3.68"
+	replace accset.atxcnp WITH ".30"
+	replace accset.cardinter WITH "AYDEN"
+	replace accset.terminalid WITH "PLACEHOLDER"
 ENDIF
 
 DO FORM ayden
